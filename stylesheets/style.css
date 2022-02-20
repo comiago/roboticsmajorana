@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat";
+  scroll-behavior: smooth; }
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  background-color: #0171B1; }
+  .nav .title {
+    color: #EEEEEE; }
+
+.menuIcon {
+  position: relative;
+  padding: 2%; }
+
+.menuIcon span {
+  display: block;
+  height: 3px;
+  width: 30px;
+  background: #EEEEEE;
+  margin-bottom: 5px; }
+
+.change span:nth-of-type(1) {
+  transform: rotate(-45deg) translate(-4px, 10px); }
+
+.change span:nth-of-type(2) {
+  opacity: 0; }
+
+.change span:nth-of-type(3) {
+  transform: rotate(45deg) translate(-1px, -8px); }
+
+.auth {
+  padding: 2%;
+  color: #EEEEEE; }
+  .auth a {
+    color: #EEEEEE; }
+  .auth #login {
+    text-decoration: none; }
+
+.menu {
+  width: 0;
+  background-color: #0171B1;
+  display: none;
+  margin: 0;
+  padding: 0; }
+  .menu .search {
+    padding: 5%; }
+  .menu li {
+    width: 100%;
+    padding: 5%;
+    list-style: none;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px; }
+    .menu li a {
+      text-decoration: none;
+      color: #EEEEEE; }
+  .menu li:hover {
+    background-color: #013959; }
+  .menu .active a {
+    color: #013959; }
+  .menu .active:hover a {
+    color: #EEEEEE; }
+  .menu .dropdown {
+    cursor: pointer;
+    color: #EEEEEE; }
+    .menu .dropdown ul {
+      display: none; }
+  .menu .dropdownOpen {
+    background-color: #013959; }
+    .menu .dropdownOpen ul {
+      display: block;
+      width: 90%;
+      margin: 5%; }
+      .menu .dropdownOpen ul li {
+        border-radius: 20px; }
+      .menu .dropdownOpen ul li:hover {
+        background-color: #014f7c; }
+
+.open {
+  display: block;
+  width: 30%; }
+
+::-webkit-scrollbar {
+  display: none; }
