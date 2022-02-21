@@ -18,7 +18,7 @@ function getProjects(){
 
 function getChapters($id){
   global $connection;
-  $query = 'SELECT chapter.idChapter, chapter.name, chapter.description FROM chapter INNER JOIN project ON chapter.idProject = ' . $id;
+  $query = 'SELECT DISTINCT chapter.idChapter, chapter.name, chapter.description FROM chapter INNER JOIN project ON chapter.idProject = ' . $id;
   return mysqli_query($connection, $query);
 }
 

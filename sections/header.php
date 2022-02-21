@@ -1,16 +1,3 @@
-<?php
-            require('config.php');
-            $projects = getprojects();
-            while($project = mysqli_fetch_array($projects)){
-                echo '<li class="dropdown">'.$project['name'].'<ul>';
-                $chapters = getChapters($project['idProject']);
-                while($chapter = mysqli_fetch_array($chapters)){
-                    echo '<li><a href="">'.$chapter["name"].'</a></li><hr>';
-                }
-
-                echo '</ul></li><hr>';
-            }
-        ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +29,19 @@
         <hr>
         <li class="active"><a href="">Home</a></li>
         <hr>
+        <?php
+            require('config.php');
+            $projects = getprojects();
+            while($project = mysqli_fetch_array($projects)){
+                echo '<li class="dropdown">'.$project['name'].'<ul>';
+                $chapters = getChapters($project['idProject']);
+                while($chapter = mysqli_fetch_array($chapters)){
 
+                    echo '<li><a href="">'.$chapter["name"].'</a></li><hr>';
+                }
+                echo '</ul></li><hr>';
+            }
+        ?>
     </ul>
     <div class="content">
 
