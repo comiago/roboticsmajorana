@@ -1,13 +1,29 @@
+@import "utilities/variables";
+
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
+}
+
+body {
+  background-color: $white;
   scroll-behavior: smooth;
 }
 
+a{
+  color: $lightBlue;
+  text-decoration: none;
+}
+
 @import "elements/header";
+
+@import "elements/content";
+
+@import "elements/footer";
 
 ::-webkit-scrollbar{
   display: none;

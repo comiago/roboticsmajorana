@@ -1,4 +1,0 @@
-@mixin transformation($deg, $x, $y) {
-    transform: rotate($deg + deg) translate($x + px, $y + px);
-  }
-  
