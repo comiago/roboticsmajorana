@@ -21,7 +21,7 @@
         </section>
         <section id="nav-icons">
             <i class="fas fa-search"></i>
-            <i class="fas fa-user-alt"></i>
+            <a href="dashboard.php"><i class="fas fa-user-alt"></i></a>
         </section>
         <div id="up-arrow"></div>
     </div>

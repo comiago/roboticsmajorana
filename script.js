@@ -103,4 +103,16 @@ $(document).ready(function(){
     })
 
     loadFirstMoreNav();
+
+    $(".toggle").click(function() {
+        $(".navigation").toggleClass("active");
+        $(".main").toggleClass("active");
+    });
+
+    $(".navigation li").click(function() {
+        if(!$(this).hasClass('siteTitle')){
+            $(".clicked").removeClass("clicked");
+            $(this).addClass("clicked");
+        }
+    });
 });
