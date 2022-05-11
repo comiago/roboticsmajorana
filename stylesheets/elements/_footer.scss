@@ -22,3 +22,11 @@
         border-top: solid 1px $white;
     }
 }
+
+@media(max-width: 480px){
+    .footer{
+        .copyright{
+            padding: 5% 10%;
+        }
+    }
+}

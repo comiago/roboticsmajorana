@@ -2,7 +2,9 @@
 
 require('connection.php');
 
-echo $_POST['function']();
+if($_POST['function'] ?? null){
+  echo $_POST['function']();
+}
 
 function getProjects(){
   global $connection;
@@ -83,3 +85,4 @@ function getSections(){
   }
   echo $output;
 }
+

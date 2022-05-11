@@ -11,7 +11,7 @@
 <body>
     <div class="nav-bar">
         <section>
-            <a class="nav-left active" href="">Home</a>
+            <a class="nav-left active" href="/">Home</a>
             <a class="nav-left" focus="about">About</a>
             <div class="nav-left" id="dropdown">Documentation <i class="fas fa-chevron-down"></i></div>
             <a class="nav-left" focus="contacts">Contacts</a>

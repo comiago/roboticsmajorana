@@ -7,6 +7,7 @@
   margin: 0;
   padding: 0;
   font-family: 'Montserrat';
+  font-weight: 300;
 }
 
 body {
@@ -22,6 +23,8 @@ a{
 @import "elements/header";
 
 @import "elements/dashboard";
+
+@import "elements/login";
 
 @import "elements/content";
 

@@ -24,19 +24,20 @@ CREATE TABLE IF NOT EXISTS role(
     PRIMARY KEY (idRole)
 );
 
-CREATE TABLE IF NOT EXISTS writer(
-    idWriter INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS user(
+    idUser INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(20) NOT NULL,
     surname VARCHAR(20) NOT NULL,
+    username VARCHAR(20) NOT NULL,
     email VARCHAR(50) NOT NULL,
     password VARCHAR(20) NOT NULL,
     role int NOT NULL,
     approvatedBy INT NOT NULL,
-	PRIMARY KEY (idWriter),
+	PRIMARY KEY (idUser),
     FOREIGN KEY (role)
         REFERENCES role(idRole) ON DELETE CASCADE,
     FOREIGN KEY (approvatedBy)
-        REFERENCES writer(idWriter) ON DELETE CASCADE
+        REFERENCES user(idUser) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS paragraph(
@@ -79,7 +80,7 @@ CREATE TABLE IF NOT EXISTS section(
     FOREIGN KEY (picture)
         REFERENCES picture(idPicture) ON DELETE CASCADE,
     FOREIGN KEY (createdBy)
-        REFERENCES writer(idWriter) ON DELETE CASCADE
+        REFERENCES user(idUser) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS modifier(
@@ -91,7 +92,7 @@ CREATE TABLE IF NOT EXISTS modifier(
     FOREIGN KEY (section)
         REFERENCES section(idSection) ON DELETE CASCADE,
     FOREIGN KEY (modifier)
-        REFERENCES writer(idWriter) ON DELETE CASCADE
+        REFERENCES user(idUser) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS sectionFile(
@@ -103,4 +104,15 @@ CREATE TABLE IF NOT EXISTS sectionFile(
         REFERENCES section(idSection) ON DELETE CASCADE,
     FOREIGN KEY (file)
         REFERENCES file(idFile) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS page(
+    idPage INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    content LONGTEXT NOT NULL,
+    style LONGTEXT NOT NULL,
+    createdBy INT NOT NULL,
+    PRIMARY KEY (idPage),
+    FOREIGN KEY (createdBy)
+        REFERENCES user(idUser) ON DELETE CASCADE
 );
