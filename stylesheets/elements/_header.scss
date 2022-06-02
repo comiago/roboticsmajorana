@@ -1,0 +1,243 @@
+.nav-bar{
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  width: 100%;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  margin: 0 auto;
+}
+
+.nav-left{
+  color: $black;
+  float: left;
+  font-size: 15px;
+  padding: 40px 0 40px 35px;
+  cursor: pointer;
+}
+
+.active{
+  color: $lightBlue!important;
+  text-decoration: underline!important;
+}
+
+.nav-left:hover{
+  color: $lightBlue;
+}
+
+.nav-center{
+  color: $lightBlue;
+  font-weight: bolder;
+  font-size: 30px;
+}
+
+#nav-icons{
+  position: relative;
+  margin-left: auto;
+}
+
+#nav-icons i{
+  font-size: 25px;
+  padding: 40px 35px 40px 0;
+}
+
+#nav-lang{
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  line-height: 13px;
+  position: absolute;
+  top: 0;
+  margin-top: 38px;
+  right: 0;
+  margin-right: 35px;
+}
+
+#up-arrow{
+  display: none;
+  position: absolute;
+  top: 90px;
+  left: 250px;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid #033982;
+}
+
+.more-nav{
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 4fr;
+  width: 100%;
+  height: 609px;
+  background-color: white;
+  box-shadow: 0 10px 10px -10px rgba(0,0,0,0.2) inset;
+  clip-path: polygon(0 0,100% 0,0 0);
+}
+
+.more-nav::before{
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: transparent;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  z-index: -10;
+}
+
+#more-nav-overlay{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: $blue;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+#first-more-nav{
+  background-color: $blue;
+  display: flex;
+  flex-direction: column;
+}
+
+#first-more-nav h1{
+  color: white;
+  margin-left: 20px;
+  padding: 20px 0 20px 20px;
+  border-bottom: solid 1px white;
+}
+
+#first-more-nav p{
+  color: white;
+  margin-left: 20px;
+  padding: 20px 0 20px 20px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#first-more-nav p:hover{
+  background-color: $blue / 0.8;
+}
+
+#second-more-nav{
+  background-color: #033982;
+  display: flex;
+  flex-direction: column;
+}
+
+#second-more-nav h1{
+  color: white;
+  margin-left: 20px;
+  padding: 20px 0 20px 20px;
+  border-bottom: solid 1px white;
+}
+
+#second-more-nav p{
+  color: white;
+  margin-left: 20px;
+  padding: 20px 0 20px 20px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#second-more-nav p:hover{
+  background-color: (#033982) / 0.8;
+}
+
+#third-more-nav{
+  display: grid;
+  column-gap: 30px;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 0 30px;
+}
+
+.third-nav-col{
+  font-size: 18px;
+}
+
+.third-nav-col p{
+  color: $lightBlue;
+  padding: 8px 0 8px 15px;
+  border-radius: 3px;
+  margin-top: 40px;
+  padding-left: 15px;
+  cursor: pointer;
+}
+
+.third-nav-col p:hover, .selectedThirdColumn{
+  background-color: #E7F5FB;
+}
+
+.selectedFirstColumn{
+  background-color: #033982!important;
+  border-top-left-radius: 3px!important;
+  border-bottom-left-radius: 3px!important;
+}
+
+.selectedSecondColumn{
+  background-color: white!important;
+  border-top-left-radius: 3px!important;
+  border-bottom-left-radius: 3px!important;
+  color: #033982!important;
+}
+
+@keyframes openMoreNav {
+  0% {
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+
+  100% {
+      clip-path: polygon(0 0, 105% 0, 105% 105%, 0 105%);
+  }
+}
+
+@keyframes closeMoreNav {
+  0% {
+      clip-path: polygon(0 0, 105% 0, 105% 105%, 0 105%);
+      opacity: 1;
+  }
+
+  55% {
+      clip-path: polygon(0 0, 25% 0, 25% 105%, 0 105%);
+      opacity: 1;
+  }
+
+  65% {
+      clip-path: polygon(0 0, 25% 0, 25% 105%, 0 105%);
+      opacity: 1;
+  }
+
+  100% {
+      clip-path: polygon(0 0, 25% 0, 25% 0, 0 0);
+      opacity: 0;
+  }
+}
+
+@keyframes firstMoreNavShow {
+  0% {
+      background-color: rgba(13,39,77,0);
+  }
+  
+  100% {
+      background-color: $blue;
+  }
+}
+
+@keyframes secondMoreNavShow {
+  0% {
+      padding: 0 0 0 20px;
+  }
+  
+  100% {
+      padding: 20px 0 20px 20px;
+  }
+}
+
+::-webkit-scrollbar {
+  display: none; 
+}

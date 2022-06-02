@@ -1,0 +1,26 @@
+#title, textarea, select{
+    width: 100%;
+    min-height: 2%;
+    margin: 2% auto;
+    padding: 2%;
+    border-radius: 10px;
+    border: none;
+}
+
+.editors{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5%;
+
+    textarea{
+        height: 20em;
+    }
+
+    select{
+        background-color: #FFFFFF;
+    }
+}
+
+#title{
+    font-size: 200%
+}
