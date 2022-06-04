@@ -282,6 +282,11 @@
     border-radius: 6px;
 }
 
+.btn:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    background-color: $blue;
+}
+
 .details table{
     width: 100%;
     border-collapse: collapse;
@@ -308,18 +313,29 @@
 
 .details .recentActivities table tr td{
     padding: 10px;
+    text-align: end!important;
+
+    a{
+        padding: 5% 10%;
+        border: solid 1px $black;
+        border-radius: 10px;
+        cursor: pointer;
+        color: $blue;
+    }
+
+    a:hover{
+        background: $blue;
+        color: $white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+
+    a:first-child{
+        margin-right: 5%;
+    }
 }
 
-.details .recentActivities table tr td:last-child{
-    text-align: end;
-}
-
-.details .recentActivities table tr td:nth-child(2){
-    text-align: end;
-}
-
-.details .recentActivities table tr td:nth-child(3){
-    text-align: center;
+.details .recentActivities table tr td:first-child{
+    text-align: left!important;
 }
 
 .status{
@@ -328,22 +344,6 @@
     border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
-}
-
-.status.delivered{
-    background: #8de02c;
-}
-
-.status.pending{
-    background: #f9ca3f;
-}
-
-.status.return{
-    background: #f00;
-}
-
-.status.inprogress{
-    background: #1795ce;
 }
 
 .recentCustomers{

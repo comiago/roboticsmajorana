@@ -143,4 +143,54 @@ $(document).ready(function(){
             }
         });
     });
+
+    $('#savePage').click(function(){
+        event.preventDefault();
+        title = $('#title').val();
+        style = $('#style').val();
+        content = $('#content').val();
+        status = $('#status').val();
+        $.ajax({
+            url: "/dbh/administration.php",
+            method: "POST",
+            data:{function:"savePage", title:title, style:style, content:content, status:status},
+            success:function(data){
+                alert(data);
+                window.location.replace('/dashboard.php');
+            }
+        });
+    });
+
+    $('#updatePage').click(function(){
+        event.preventDefault();
+        page = $('#form').attr('page');
+        title = $('#title').val();
+        style = $('#style').val();
+        content = $('#content').val();
+        status = $('#status').val();
+        $.ajax({
+            url: "/dbh/administration.php",
+            method: "POST",
+            data:{function:"updatePage", page:page, title:title, style:style, content:content, status:status},
+            success:function(data){
+                alert(data);
+                window.location.replace('/dashboard.php');
+            }
+        });
+    });
+
+    $('#saveProject').click(function(){
+        event.preventDefault();
+        title = $('#title').val();
+        description = $('#description').val();
+        $.ajax({
+            url: "/dbh/administration.php",
+            method: "POST",
+            data:{function:"saveProject", title:title, description:description},
+            success:function(data){
+                console.log(data);
+                // window.location.replace('/dashboard.php');
+            }
+        });
+    });
 });

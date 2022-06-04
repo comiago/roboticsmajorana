@@ -452,6 +452,10 @@ a {
   color: #EEEEEE;
   border-radius: 6px; }
 
+.btn:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  background-color: #07186A; }
+
 .details table {
   width: 100%;
   border-collapse: collapse;
@@ -472,16 +476,23 @@ a {
   color: #EEEEEE; }
 
 .details .recentActivities table tr td {
-  padding: 10px; }
+  padding: 10px;
+  text-align: end !important; }
+  .details .recentActivities table tr td a {
+    padding: 5% 10%;
+    border: solid 1px #333333;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #07186A; }
+  .details .recentActivities table tr td a:hover {
+    background: #07186A;
+    color: #EEEEEE;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.6); }
+  .details .recentActivities table tr td a:first-child {
+    margin-right: 5%; }
 
-.details .recentActivities table tr td:last-child {
-  text-align: end; }
-
-.details .recentActivities table tr td:nth-child(2) {
-  text-align: end; }
-
-.details .recentActivities table tr td:nth-child(3) {
-  text-align: center; }
+.details .recentActivities table tr td:first-child {
+  text-align: left !important; }
 
 .status {
   padding: 2px 4px;
@@ -489,18 +500,6 @@ a {
   border-radius: 4px;
   font-size: 14px;
   font-weight: 500; }
-
-.status.delivered {
-  background: #8de02c; }
-
-.status.pending {
-  background: #f9ca3f; }
-
-.status.return {
-  background: #f00; }
-
-.status.inprogress {
-  background: #1795ce; }
 
 .recentCustomers {
   position: relative;
@@ -598,25 +597,26 @@ a {
     right: 0;
     left: initial;
     color: #EEEEEE; } }
-#title, textarea, select {
+#title, textarea, #status {
   width: 100%;
-  min-height: 2%;
   margin: 2% auto;
   padding: 2%;
   border-radius: 10px;
   border: none; }
 
+#title {
+  font-size: 200%; }
+
+textarea {
+  height: 20em;
+  font-size: 120%; }
+
 .editors {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 5%; }
-  .editors textarea {
-    height: 20em; }
   .editors select {
     background-color: #FFFFFF; }
-
-#title {
-  font-size: 200%; }
 
 .admin {
   display: flex;

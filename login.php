@@ -25,8 +25,17 @@
 
 <?php
 $error = $_GET['error'] ?? null;
-if($error == 'wrongLogin'){
-    echo "<script>alert('Incorrect login informations!')</script>";
+if($error){
+    echo "<script>alert('";
+    switch ($error) {
+        case 'wrongLogin':
+            echo "Incorrect login informations!";
+            break;
+        case 'notApproved':
+            echo "You haven\'t been approved yet!";
+            break;
+    }
+    echo "')</script>";
 }
 
 require('sections/footer.php');

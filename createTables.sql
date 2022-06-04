@@ -1,20 +1,11 @@
 USE roboticsmajorana;
 
-CREATE TABLE IF NOT EXISTS project(
-    idProject INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS status(
+    idStatus INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
     description VARCHAR(255),
-    PRIMARY KEY (idProject)
-);
-
-CREATE TABLE IF NOT EXISTS chapter(
-    idChapter INT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(20) NOT NULL,
-    description VARCHAR(255),
-    project INT NOT NULL,
-    PRIMARY KEY (idChapter),
-    FOREIGN KEY (project)
-        REFERENCES project(idProject) ON DELETE CASCADE
+    color VARCHAR(10) NOT NULL,
+    PRIMARY KEY (idStatus)
 );
 
 CREATE TABLE IF NOT EXISTS role(
@@ -30,7 +21,7 @@ CREATE TABLE IF NOT EXISTS user(
     surname VARCHAR(20) NOT NULL,
     username VARCHAR(20) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    password VARCHAR(20) NOT NULL,
+    password VARCHAR(100) NOT NULL,
     approvated BOOLEAN DEFAULT false NOT NULL,
     role int NOT NULL,
     referent INT NOT NULL,
@@ -39,6 +30,30 @@ CREATE TABLE IF NOT EXISTS user(
         REFERENCES role(idRole) ON DELETE CASCADE,
     FOREIGN KEY (referent)
         REFERENCES user(idUser) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS project(
+    idProject INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(20) NOT NULL,
+    status INT NOT NULL,
+    createdBy INT NOT NULL,
+    createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    description VARCHAR(255),
+    PRIMARY KEY (idProject),
+    FOREIGN KEY (createdBy)
+        REFERENCES user(idUser) ON DELETE CASCADE,
+    FOREIGN KEY (status)
+        REFERENCES status(idStatus) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS chapter(
+    idChapter INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(20) NOT NULL,
+    description VARCHAR(255),
+    project INT NOT NULL,
+    PRIMARY KEY (idChapter),
+    FOREIGN KEY (project)
+        REFERENCES project(idProject) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS paragraph(
@@ -110,10 +125,14 @@ CREATE TABLE IF NOT EXISTS sectionFile(
 CREATE TABLE IF NOT EXISTS page(
     idPage INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) UNIQUE NOT NULL,
-    content LONGTEXT NOT NULL,
-    style LONGTEXT NOT NULL,
+    content LONGTEXT,
+    style LONGTEXT,
+    status INT NOT NULL,
     createdBy INT NOT NULL,
+    updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (idPage),
     FOREIGN KEY (createdBy)
-        REFERENCES user(idUser) ON DELETE CASCADE
+        REFERENCES user(idUser) ON DELETE CASCADE,
+    FOREIGN KEY (status)
+        REFERENCES status(idStatus) ON DELETE CASCADE
 );
