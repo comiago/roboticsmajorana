@@ -35,10 +35,10 @@ CREATE TABLE IF NOT EXISTS user(
 CREATE TABLE IF NOT EXISTS project(
     idProject INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(20) NOT NULL,
+    description VARCHAR(255),
     status INT NOT NULL,
     createdBy INT NOT NULL,
-    createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    description VARCHAR(255),
+    updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (idProject),
     FOREIGN KEY (createdBy)
         REFERENCES user(idUser) ON DELETE CASCADE,
@@ -51,9 +51,16 @@ CREATE TABLE IF NOT EXISTS chapter(
     name VARCHAR(20) NOT NULL,
     description VARCHAR(255),
     project INT NOT NULL,
+    status INT NOT NULL,
+    createdBy INT NOT NULL,
+    updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (idChapter),
     FOREIGN KEY (project)
-        REFERENCES project(idProject) ON DELETE CASCADE
+        REFERENCES project(idProject) ON DELETE CASCADE,
+    FOREIGN KEY (createdBy)
+        REFERENCES user(idUser) ON DELETE CASCADE,
+    FOREIGN KEY (status)
+        REFERENCES status(idStatus) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS paragraph(

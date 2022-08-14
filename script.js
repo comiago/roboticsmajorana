@@ -129,6 +129,21 @@ $(document).ready(function(){
             data:{function:"getPages"},
             success:function(data){
                 $(".main").html(data);
+                $('.deletePage').click(function(){
+                    page = $(this).parent().parent().attr('page');
+                    check = confirm('Are you sure you want to delete the page?');
+                    if(check){
+                        $.ajax({
+                            url: "/dbh/administration.php",
+                            method: "POST",
+                            data:{function:"deletePage", page:page},
+                            success:function(data){
+                                alert(data);
+                                window.location.replace('/dashboard.php');
+                            }
+                        });
+                    }
+                });
             }
         });
     });
@@ -140,6 +155,47 @@ $(document).ready(function(){
             data:{function:"getProjects"},
             success:function(data){
                 $(".main").html(data);
+                $('.deleteProject').click(function(){
+                    project = $(this).parent().parent().attr('project');
+                    check = confirm('Are you sure you want to delete the project?');
+                    if(check){
+                        $.ajax({
+                            url: "/dbh/administration.php",
+                            method: "POST",
+                            data:{function:"deleteProject", project:project},
+                            success:function(data){
+                                alert(data);
+                                window.location.replace('/dashboard.php');
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
+
+    $('#chapters').click(function(){
+        $.ajax({
+            url: "/dbh/administration.php",
+            method: "POST",
+            data:{function:"getChapters"},
+            success:function(data){
+                $(".main").html(data);
+                $('.deleteChapter').click(function(){
+                    chapter = $(this).parent().parent().attr('chapter');
+                    check = confirm('Are you sure you want to delete the chapter?');
+                    if(check){
+                        $.ajax({
+                            url: "/dbh/administration.php",
+                            method: "POST",
+                            data:{function:"deleteChapter", chapter:chapter},
+                            success:function(data){
+                                alert(data);
+                                window.location.replace('/dashboard.php');
+                            }
+                        });
+                    }
+                });
             }
         });
     });
@@ -183,13 +239,66 @@ $(document).ready(function(){
         event.preventDefault();
         title = $('#title').val();
         description = $('#description').val();
+        status = $('#status').val();
         $.ajax({
             url: "/dbh/administration.php",
             method: "POST",
-            data:{function:"saveProject", title:title, description:description},
+            data:{function:"saveProject", title:title, description:description, status:status},
             success:function(data){
-                console.log(data);
-                // window.location.replace('/dashboard.php');
+                alert(data);
+                window.location.replace('/dashboard.php');
+            }
+        });
+    });
+
+    $('#updateProject').click(function(){
+        event.preventDefault();
+        project = $('#form').attr('project');
+        title = $('#title').val();
+        description = $('#description').val();
+        status = $('#status').val();
+        $.ajax({
+            url: "/dbh/administration.php",
+            method: "POST",
+            data:{function:"updateProject", project:project, title:title, description:description, status:status},
+            success:function(data){
+                alert(data);
+                window.location.replace('/dashboard.php');
+            }
+        });
+    });
+
+    $('#saveChapter').click(function(){
+        event.preventDefault();
+        title = $('#title').val();
+        description = $('#description').val();
+        project = $('#project').val();
+        status = $('#status').val();
+        $.ajax({
+            url: "/dbh/administration.php",
+            method: "POST",
+            data:{function:"saveChapter", title:title, description:description, project:project, status:status},
+            success:function(data){
+                alert(data);
+                window.location.replace('/dashboard.php');
+            }
+        });
+    });
+
+    $('#updateChapter').click(function(){
+        event.preventDefault();
+        chapter = $('#form').attr('chapter');
+        title = $('#title').val();
+        description = $('#description').val();
+        project = $('#project').val();
+        status = $('#status').val();
+        $.ajax({
+            url: "/dbh/administration.php",
+            method: "POST",
+            data:{function:"updateChapter", chapter:chapter, title:title, description:description, project:project, status:status},
+            success:function(data){
+                alert(data);
+                window.location.replace('/dashboard.php');
             }
         });
     });

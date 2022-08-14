@@ -145,10 +145,18 @@ function getPages(){
     while ($page = mysqli_fetch_array($result)){
         $author = getUser($page['createdBy']);
         $status = getStatus($page['status']); 
-        $output .= '<tr><td>' . $page['name'] . '</td><td>' . $author['name'] . ' ' . $author['surname'] . '</td><td>' . $page['updatedAt'] . '</td><td><span class="status" style="background: ' . $status['color'] . '">' . $status['name'] . '</span></td><td><a><i class="fa-solid fa-trash"></i></a><a href="sections/pageEditor.php?id=' . $page['idPage'] . '"><i class="fa-solid fa-pencil"></i></a></td></tr>';
+        $output .= '<tr page="'.$page['idPage'].'"><td>' . $page['name'] . '</td><td>' . $author['name'] . ' ' . $author['surname'] . '</td><td>' . $page['updatedAt'] . '</td><td><span class="status" style="background: ' . $status['color'] . '">' . $status['name'] . '</span></td><td><a class="deletePage"><i class="fa-solid fa-trash"></i></a><a href="sections/pageEditor.php?id=' . $page['idPage'] . '"><i class="fa-solid fa-pencil"></i></a></td></tr>';
     }
     $output .= '</tbody></table></div></div>';
     echo $output;
+}
+
+function getProject($id){
+    global $connection;
+    $query = "SELECT * FROM project WHERE idProject = $id";
+    $result = mysqli_query($connection, $query);
+    $row = mysqli_fetch_array($result);
+    return $row;
 }
 
 function getProjects(){
@@ -156,12 +164,35 @@ function getProjects(){
     $query = "SELECT * FROM project";
     $result = mysqli_query($connection, $query);
     $output = "";
-    $output .= '<div class="details"><div class="recentActivities"><div class="cardHeader"><h2>Projects</h2><a href="sections/projectEditor.php" class="btn">New Project</a></div><table><thead><tr><td>Title</td><td>Author</td><td>Created At</td><td>Status</td><td>Actions</td></tr></thead><tbody>';
+    $output .= '<div class="details"><div class="recentActivities"><div class="cardHeader"><h2>Projects</h2><a href="sections/projectEditor.php" class="btn">New Project</a></div><table><thead><tr><td>Title</td><td>Author</td><td>Last Modify</td><td>Status</td><td>Actions</td></tr></thead><tbody>';
     while ($project = mysqli_fetch_array($result)){
         $author = getUser($project['createdBy']);
         $status = getStatus($project['status']); 
-        $output .= '<tr><td>' . $project['name'] . '</td></tr>';
-        $output .= '<tr><td>' . $project['name'] . '</td><td>' . $author['name'] . ' ' . $author['surname'] . '</td><td>' . $project['createdAt'] . '</td><td><span class="status" style="background: ' . $status['color'] . '">' . $status['name'] . '</span></td><td><button type="button"><i class="fa-solid fa-trash"></i></button><button type="button"><i class="fa-solid fa-pencil"></i></button></td></tr>';
+        $output .= '<tr project="'.$project['idProject'].'"><td>' . $project['name'] . '</td><td>' . $author['name'] . ' ' . $author['surname'] . '</td><td>' . $project['updatedAt'] . '</td><td><span class="status" style="background: ' . $status['color'] . '">' . $status['name'] . '</span></td><td><a class="deleteProject"><i class="fa-solid fa-trash"></i></a><a href="sections/projectEditor.php?id=' . $project['idProject'] . '"><i class="fa-solid fa-pencil"></i></a></td></tr>';
+    }
+    $output .= '</tbody></table></div></div>';
+    echo $output;
+}
+
+function getChapter($id){
+    global $connection;
+    $query = "SELECT * FROM chapter WHERE idChapter = $id";
+    $result = mysqli_query($connection, $query);
+    $row = mysqli_fetch_array($result);
+    return $row;
+}
+
+function getChapters(){
+    global $connection;
+    $query = "SELECT * FROM chapter";
+    $result = mysqli_query($connection, $query);
+    $output = "";
+    $output .= '<div class="details"><div class="recentActivities"><div class="cardHeader"><h2>Chapters</h2><a href="sections/chapterEditor.php" class="btn">New Chapter</a></div><table><thead><tr><td>Title</td><td>Project</td><td>Author</td><td>Last Modify</td><td>Status</td><td>Actions</td></tr></thead><tbody>';
+    while ($chapter = mysqli_fetch_array($result)){
+        $author = getUser($chapter['createdBy']);
+        $status = getStatus($chapter['status']); 
+        $project = getProject($chapter['project']);
+        $output .= '<tr chapter="'.$chapter['idChapter'].'"><td>' . $chapter['name'] . '</td><td>' . $project['name'] . '</td><td>' . $author['name'] . ' ' . $author['surname'] . '</td><td>' . $chapter['updatedAt'] . '</td><td><span class="status" style="background: ' . $status['color'] . '">' . $status['name'] . '</span></td><td><a class="deleteChapter"><i class="fa-solid fa-trash"></i></a><a href="sections/chapterEditor.php?id=' . $chapter['idChapter'] . '"><i class="fa-solid fa-pencil"></i></a></td></tr>';
     }
     $output .= '</tbody></table></div></div>';
     echo $output;
@@ -170,6 +201,12 @@ function getProjects(){
 function getStatuses(){
     global $connection;
     $query = "SELECT * FROM status";
+    return mysqli_query($connection, $query);
+}
+
+function getProjectReferences(){
+    global $connection;
+    $query = "SELECT * FROM project";
     return mysqli_query($connection, $query);
 }
 
@@ -185,6 +222,18 @@ function savePage(){
     }
 }
 
+function deletePage(){
+    global $connection;
+    session_start();
+    $query = "DELETE FROM page WHERE idPage = " . $_POST['page'];
+    $result = mysqli_query($connection, $query);
+    if ($result) {
+        echo "Page deleted";
+    } else {
+        echo "Error";
+    }
+}
+
 function updatePage(){
     global $connection;
     $id = $_POST['page'] ?? null;
@@ -192,22 +241,89 @@ function updatePage(){
     $style = $_POST['style'] ?? null;
     $content = $_POST['content'] ?? null;
     $status = $_POST['status'] ?? null;
-    $query = "UPDATE page SET " . ($title !== null && $title !== '' ? "title = '" . $title . "', " : "") . ($style !== null && $style !== '' ? "style = '" . $style . "', " : "") . ($content !== null && $content !== '' ? "content = '" . $content . "', " : "") . ($status !== null && $status !== '' ? "status = " . $status . ", " : "") . " updatedAt = NOW() WHERE idPage = $id";
+    $query = "UPDATE page SET " . ($title !== null && $title !== '' ? "name = '" . $title . "', " : "") . ($style !== null && $style !== '' ? "style = '" . $style . "', " : "") . ($content !== null && $content !== '' ? "content = '" . $content . "', " : "") . ($status !== null && $status !== '' ? "status = " . $status . ", " : "") . " updatedAt = NOW() WHERE idPage = $id";
     $result = mysqli_query($connection, $query);
     if ($result) {
         echo "Page updated correctly";
     } else {
-        echo "Error";
+        echo "Error: " . mysqli_error($connection);
     }
 }
 
 function saveProject(){
     global $connection;
     session_start();
-    $query = "INSERT INTO project (name, description, createdBy) VALUES ('" . $_POST['title'] . "', '" . $_POST['description'] . "', " . $_SESSION['id'] . ")";
+    $query = "INSERT INTO project (name, description, status, createdBy) VALUES ('" . $_POST['title'] . "', '" . $_POST['description'] . "', '" . $_POST['status'] . "', '" . $_SESSION['id'] . "')";
     $result = mysqli_query($connection, $query);
     if ($result) {
         echo "Project saved";
+    } else {
+        echo "Error";
+    }
+}
+
+function deleteProject(){
+    global $connection;
+    session_start();
+    $query = "DELETE FROM project WHERE idProject = " . $_POST['project'];
+    $result = mysqli_query($connection, $query);
+    if ($result) {
+        echo "Project deleted";
+    } else {
+        echo "Error";
+    }
+}
+
+function updateProject(){
+    global $connection;
+    $id = $_POST['project'] ?? null;
+    $title = $_POST['title'] ?? null;
+    $description = $_POST['description'] ?? null;
+    $status = $_POST['status'] ?? null;
+    $query = "UPDATE project SET " . ($title !== null && $title !== '' ? "name = '" . $title . "', " : "") . ($description !== null && $description !== '' ? "description = '" . $description . "', " : "") . ($status !== null && $status !== '' ? "status = " . $status . ", " : "") . " updatedAt = NOW() WHERE idProject = $id";
+    $result = mysqli_query($connection, $query);
+    if ($result) {
+        echo "Project updated correctly";
+    } else {
+        echo "Error";
+    }
+}
+
+function saveChapter(){
+    global $connection;
+    session_start();
+    $query = "INSERT INTO chapter (name, description, project, status, createdBy) VALUES ('" . $_POST['title'] . "', '" . $_POST['description'] . "', '" . $_POST['project'] . "', '" . $_POST['status'] . "', '" . $_SESSION['id'] . "')";
+    $result = mysqli_query($connection, $query);
+    if ($result) {
+        echo "Chapter saved";
+    } else {
+        echo "Error";
+    }
+}
+
+function deleteChapter(){
+    global $connection;
+    session_start();
+    $query = "DELETE FROM chapter WHERE idChapter = " . $_POST['chapter'];
+    $result = mysqli_query($connection, $query);
+    if ($result) {
+        echo "Chapter deleted";
+    } else {
+        echo "Error";
+    }
+}
+
+function updateChapter(){
+    global $connection;
+    $id = $_POST['chapter'] ?? null;
+    $title = $_POST['title'] ?? null;
+    $description = $_POST['description'] ?? null;
+    $project = $_POST['project'] ?? null;
+    $status = $_POST['status'] ?? null;
+    $query = "UPDATE chapter SET " . ($title !== null && $title !== '' ? "name = '" . $title . "', " : "") . ($description !== null && $description !== '' ? "description = '" . $description . "', " : "") . ($project !== null && $project !== '' ? "project = " . $project . ", " : "") . ($status !== null && $status !== '' ? "status = " . $status . ", " : "") . " updatedAt = NOW() WHERE idChapter = $id";
+    $result = mysqli_query($connection, $query);
+    if ($result) {
+        echo "Chapter updated correctly";
     } else {
         echo "Error";
     }

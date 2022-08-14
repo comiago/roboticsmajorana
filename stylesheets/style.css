@@ -597,7 +597,7 @@ a {
     right: 0;
     left: initial;
     color: #EEEEEE; } }
-#title, textarea, #status {
+#title, textarea, #status, #project {
   width: 100%;
   margin: 2% auto;
   padding: 2%;
@@ -778,3 +778,6 @@ input[type="submit"]:hover {
     padding: 5% 10%; } }
 ::-webkit-scrollbar {
   display: none; }
+
+::-webkit-progress-bar {
+  background-color: #0171B1; }

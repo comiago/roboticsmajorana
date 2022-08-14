@@ -50,7 +50,7 @@
                     </a>
                 </li>
                 <li>
-                    <a>
+                    <a id="chapters">
                         <span class="icon"><i class="fa-solid fa-bookmark"></i></span>
                         <span class="title">Chapters</span>
                     </a>
@@ -65,6 +65,18 @@
                     <a>
                         <span class="icon"><i class="fa-solid fa-users"></i></span>
                         <span class="title">Profiles</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dbh/logout.inc.php">
+                        <span class="icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+                        <span class="title">LogOut</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/dbh/logout.inc.php">
+                        <span class="icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+                        <span class="title">LogOut</span>
                     </a>
                 </li>
                 <li>

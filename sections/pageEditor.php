@@ -6,13 +6,12 @@ if (isset($_SESSION['id'])):
     require('header.php');
     require('../dbh/administration.php');
     
-    $id = isset($_GET['id']);
     $modify = false;
     $title = 'Title';
     $style = 'Style';
     $content = 'Content';
 
-    if ($id){
+    if (isset($_GET['id'])){
         $modify = true;
         $page = getPage($_GET['id']);
         $title = $page['name'] != "" ? $page['name'] : 'Title';
@@ -21,20 +20,20 @@ if (isset($_SESSION['id'])):
     }
 ?>
 
-<h1>Edit Page</h1>
+<h1>Page Editor</h1>
 
 <?php
     if ($modify === true){
-        echo "<form id='form' page='" . $id . "'>";
+        echo "<form id='form' page='" . $_GET['id'] . "'>";
     } else {
         echo "<form id='form'>";
     }
 ?>
-    <input type="text" name="title" placeholder="<?php echo $title; ?>" id="title">
+    <input type="text" name="title" placeholder="<?php echo $title; ?>" id="title" required>
     <div class="editors">
         <textarea name="style" placeholder="<?php echo $style; ?>" id="style"></textarea>
         <textarea name="content" placeholder="<?php echo $content; ?>" id="content"></textarea>
-        <select name="status" id="status">
+        <select name="status" id="status" required>
             <option value="">--Status</option>
             <?php
                 $statuses = getStatuses();

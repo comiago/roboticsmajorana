@@ -8,7 +8,7 @@ if($_POST['function'] ?? null){
 
 function getProjects(){
   global $connection;
-  $query = 'SELECT idProject, name FROM project';
+  $query = 'SELECT DISTINCT idProject, project.name FROM project INNER JOIN status ON status.idStatus = project.status where status.name = "public"';
   $result = mysqli_query($connection, $query);
   $index = 0;
   $output = '<h1 style="margin-top: 20px">Projects</h1>';

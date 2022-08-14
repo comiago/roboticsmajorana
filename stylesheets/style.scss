@@ -35,3 +35,7 @@ a{
 ::-webkit-scrollbar{
   display: none;
 }
+
+::-webkit-progress-bar {
+  background-color: $lightBlue;
+}
